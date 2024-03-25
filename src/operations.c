@@ -34,4 +34,20 @@ int	push(t_stack *stack, t_node *node)
 	return (0);
 }
 
+int	swap(t_stack *stack)
+{
+	int	temp_index;
+	int	temp_data;
 
+	if (stack != NULL && (stack.head != stack.tail))
+	{
+		temp_data = stack.head.data;
+		temp_index = stacl.head.index;
+		stack.head.data = stack.head.prev.data;
+		stack.head.index = stack.head.prev.index;
+		stack.head.prev.index = temp_index;
+		stack.head.prev.data = temp_data;
+		return (1);
+	}
+	return (0);
+}
