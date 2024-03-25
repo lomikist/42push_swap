@@ -33,3 +33,5 @@ int	push(t_stack *stack, t_node *node)
 	}
 	return (0);
 }
+
+
