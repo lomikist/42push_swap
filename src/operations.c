@@ -40,15 +40,35 @@ int	swap(t_stack *stack)
 	int	temp_index;
 	int	temp_data;
 
-	if (stack != NULL && (stack.head != stack.tail))
+	if (stack != NULL && (stack->head != stack->tail))
 	{
-		temp_data = stack.head.data;
-		temp_index = stacl.head.index;
-		stack.head.data = stack.head.prev.data;
-		stack.head.index = stack.head.prev.index;
-		stack.head.prev.index = temp_index;
-		stack.head.prev.data = temp_data;
+		temp_data = stack->head->data;
+		temp_index = stack->head->index;
+		stack->head->data = stack->head->prev->data;
+		stack->head->index = stack->head->prev->index;
+		stack->head->prev->data = temp_data;
+		stack->head->prev->index = temp_index;
 		return (1);
+	}
+	return (0);
+}
+
+int	rotate(t_stack *stack)
+{
+	if (stack != NULL && (stack->head != stack->tail))
+	{
+		stack->head = stack->head->prev;
+		stack->tail = stack->head->next;
+	}
+	return (0);
+}
+
+int	revRotate(t_stack *stack)
+{
+	if (stack != NULL && (stack->head != stack->tail))
+	{
+		stack->tail = stack->tail->next;
+		stack->head = stack->tail->prev;
 	}
 	return (0);
 }

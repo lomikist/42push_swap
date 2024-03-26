@@ -1,6 +1,6 @@
 NAME			= push_swap
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror -g #-fsanitize=address
 OS				= $(shell uname)
 MAKE			= make -sC
 MKDIR			= mkdir -p
