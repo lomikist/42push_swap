@@ -4,7 +4,7 @@ t_node	*create_node(int index, int data)
 {
 	t_node	*new_node;
 
-	new_node = NULL;
+	new_node = malloc((sizeof(int) * 2) + (sizeof(void *) * 2));
 	new_node->index = index;
 	new_node->data = data;
 	new_node->prev = NULL;
@@ -31,5 +31,6 @@ int	push(t_stack *stack, t_node *node)
 		stack->tail->prev = node;
 		stack->head->prev = node;
 	}
+	stack->count++;
 	return (0);
 }
