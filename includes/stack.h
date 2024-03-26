@@ -27,7 +27,7 @@ typedef struct s_engine
 	t_stack	stack_b;
 }	t_engine;
 
-int	ft_atoi(char *str);
+int		ft_atoi(char *str);
 t_node	*create_node(int index, int data);
-int	push(t_stack *stack, t_node *node);
+int		push(t_stack *stack, t_node *node);
 #endif
