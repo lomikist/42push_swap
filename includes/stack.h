@@ -31,5 +31,7 @@ int		ft_atoi(char *str);
 t_node	*create_node(int index, int data);
 int	push(t_stack *stack, t_node *node);
 int	swap(t_stack *stack);
+int rotate(t_stack *stack);
+int	revRotate(t_stack *stack);
 
 #endif

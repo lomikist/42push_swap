@@ -63,7 +63,8 @@ int	main(int argc, char **argv)
 	engine.stack_a.count = 0;
 	engine.stack_b.count = 0;
 	stack_init(argc, argv, &engine);
-
+	rotate(&engine.stack_a);
+	revRotate(&engine.stack_a);
 	print_stack(&engine.stack_a);
 	return (0);
 }
