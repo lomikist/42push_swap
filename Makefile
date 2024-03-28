@@ -15,8 +15,8 @@ SRCS_DIR		= src/
 SRC_FILES		= main.c \
 				  operations.c \
 				  ft_atoi.c \
-				  stack.c 
-
+				  sort.c \
+				  utils.c
 #LIBFT
 LIBFT_DIR	= libft
 LIBFT 		= $(LIBFT_DIR)/libft.a

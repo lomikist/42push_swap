@@ -6,56 +6,72 @@ void	error_message(char *sms, int count)
 	exit(EXIT_FAILURE);
 }
 
+void	init_sorted_array(int *arr, int argc, char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[++i])
+	{
+		if (argv[i][0] == '0' && !argv[i][1])
+			arr[i - 1] = 0;
+		else if (ft_atoi(argv[i]))
+			arr[i - 1] = ft_atoi(argv[i]);
+	}
+	bubbleSort(&arr[0], argc - 1);
+}
+
+int	find_index(int *arr, int to_find, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		if (arr[i] == to_find)
+			return i;
+		i++;
+	}
+	return 0;
+}
+
 void	stack_init(int argc, char **argv, t_engine *engine)
 {
 	int		i;
-	// int		j;
+	int		index;
 	t_node	*node;
+	int		*arr;
 
 	i = 0;
-	// j = -1;
 	if (argc <= 1)
 		error_message("Wrong count of arguments!", 25);
 	else
 	{
+		arr = malloc(sizeof(int) * (argc - 1));
+		init_sorted_array(&arr[0], argc, argv);
 		while (argv[++i])
 		{
 			if (argv[i][0] == '0' && !argv[i][1])
 			{
-				node = create_node(i, 0);
-				push(&engine->stack_a, node);
+				index = find_index(&arr[0], 0, argc - 1);
+				node = create_node(i, 0, index);
 			}
 			else if (ft_atoi(argv[i]))
 			{
-				node = create_node(i, ft_atoi(argv[i]));
-				push(&engine->stack_a, node);
+				index = find_index(&arr[0], ft_atoi(argv[i]), argc - 1);
+				node = create_node(i, ft_atoi(argv[i]), index);
 			}
 			else
-				printf("%s\n", "error");
+				exit(EXIT_FAILURE);
+			push(&engine->stack_a, node);
 		}
 	}
 }
 
-void print_stack(t_stack *stack) {
-	int i = 0;
-
-	if (stack == NULL) {
-        printf("Error: Stack is Empty\n");
-        return;
-    }
-
-    printf("Stack contents:\n");
-    t_node *current = stack->tail;
-    while (i < stack->count) {
-        printf("Index: %d, Data: %d\n", current->index, current->data);
-        current = current->next;
-		i++;
-    }
-}
-
 int	main(int argc, char **argv)
 {
-	t_engine engine;
+	t_engine	engine;
+
 	engine.stack_a.head = NULL;
 	engine.stack_a.tail = NULL;
 	engine.stack_b.head = NULL;
