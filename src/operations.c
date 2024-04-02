@@ -36,6 +36,24 @@ int	push(t_stack *stack, t_node *node)
 	return (0);
 }
 
+t_node	*pop(t_stack *stack)
+{
+	t_node	*temp;
+
+	temp = NULL;
+	if (stack->head)
+	{
+		temp = stack->head;
+		stack->head = stack->head->prev;
+		stack->tail->prev = stack->head;
+		stack->head->next = stack->tail;
+		temp->next = NULL;
+		temp->prev = NULL;
+	}
+	stack->count--;
+	return (temp);
+}
+
 int	swap(t_stack *stack)
 {
 	int	temp_index;

@@ -31,6 +31,7 @@ typedef struct s_engine
 int		ft_atoi(char *str);
 t_node	*create_node(int index, int data, int supos_index);
 int	push(t_stack *stack, t_node *node);
+t_node	*pop(t_stack *stack);
 int	swap(t_stack *stack);
 int rotate(t_stack *stack);
 int	revRotate(t_stack *stack);

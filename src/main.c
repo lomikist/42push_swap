@@ -68,6 +68,25 @@ void	stack_init(int argc, char **argv, t_engine *engine)
 	}
 }
 
+
+int	generate_chunk(int size)
+{
+	int	chunk;
+
+	chunk = 1;
+	if (size < 50)
+		chunk = 3 + (size - 6) / 7;
+	else if (size >= 50 && size < 100)
+		chunk = 10 + (size - 50) / 8;
+	else if (size >= 100 && size < 350)
+		chunk = 18 + (size - 100) / 9;
+	else if (size >= 350 && size <= 500)
+		chunk = 27 + (size - 350) / 15;
+	else if (size > 500)
+		chunk = 37 + (size - 500) / 20;
+	return (chunk);
+}
+
 int	main(int argc, char **argv)
 {
 	t_engine	engine;
@@ -79,8 +98,11 @@ int	main(int argc, char **argv)
 	engine.stack_a.count = 0;
 	engine.stack_b.count = 0;
 	stack_init(argc, argv, &engine);
+	
+	
 	rotate(&engine.stack_a);
 	revRotate(&engine.stack_a);
+	pop(&engine.stack_a);
 	print_stack(&engine.stack_a);
 	return (0);
 }
