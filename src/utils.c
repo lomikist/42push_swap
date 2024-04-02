@@ -15,7 +15,7 @@ void	print_stack(t_stack *stack)
 	current = stack->tail;
 	while (i < stack->count)
 	{
-		printf("Index: %d, Data: %d, suppos: %d\n", current->index, current->data, current->supos_index);
+		printf("Data: %d, suppos: %d\n", current->data, current->supos_index);
 		current = current->next;
 		i++;
 	}

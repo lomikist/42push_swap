@@ -10,7 +10,6 @@ typedef struct s_node
 {
 	struct s_node	*next;
 	struct s_node	*prev;
-	int				index;
 	int				supos_index;
 	int				data;
 }	t_node;
@@ -29,14 +28,13 @@ typedef struct s_engine
 }	t_engine;
 
 int		ft_atoi(char *str);
-t_node	*create_node(int index, int data, int supos_index);
+t_node	*create_node(int data, int supos_index);
 int	push(t_stack *stack, t_node *node);
 t_node	*pop(t_stack *stack);
 int	swap(t_stack *stack);
-int rotate(t_stack *stack);
+int rotate(t_stack *stack, char *cmd);
 int	revRotate(t_stack *stack);
 void 	bubbleSort(int *arr, int count);
 void	print_stack(t_stack *stack);
-
 
 #endif

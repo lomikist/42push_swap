@@ -1,11 +1,11 @@
 #include "../includes/stack.h"
 
-t_node	*create_node(int index, int data, int supos_index)
+t_node	*create_node(int data, int supos_index)
 {
 	t_node	*new_node;
 
 	new_node = malloc((sizeof(int) * 2) + (sizeof(void *) * 2));
-	new_node->index = index;
+	// new_node->index = index;
 	new_node->data = data;
 	new_node->supos_index = supos_index;
 	new_node->prev = NULL;
@@ -56,28 +56,30 @@ t_node	*pop(t_stack *stack)
 
 int	swap(t_stack *stack)
 {
-	int	temp_index;
+	// int	temp_index;
 	int	temp_data;
 
 	if (stack != NULL && (stack->head != stack->tail))
 	{
 		temp_data = stack->head->data;
-		temp_index = stack->head->index;
+		// temp_index = stack->head->index;
 		stack->head->data = stack->head->prev->data;
-		stack->head->index = stack->head->prev->index;
+		// stack->head->index = stack->head->prev->index;
 		stack->head->prev->data = temp_data;
-		stack->head->prev->index = temp_index;
+		// stack->head->prev->index = temp_index;
 		return (1);
 	}
 	return (0);
 }
 
-int	rotate(t_stack *stack)
+int	rotate(t_stack *stack, char *cmd)
 {
 	if (stack != NULL && (stack->head != stack->tail))
 	{
 		stack->head = stack->head->prev;
 		stack->tail = stack->head->next;
+		write(1, cmd, 2);
+		write(1, "\n", 1);
 	}
 	return (0);
 }
@@ -91,3 +93,4 @@ int	revRotate(t_stack *stack)
 	}
 	return (0);
 }
+

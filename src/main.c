@@ -54,12 +54,12 @@ void	stack_init(int argc, char **argv, t_engine *engine)
 			if (argv[i][0] == '0' && !argv[i][1])
 			{
 				index = find_index(&arr[0], 0, argc - 1);
-				node = create_node(i, 0, index);
+				node = create_node(0, index);
 			}
 			else if (ft_atoi(argv[i]))
 			{
 				index = find_index(&arr[0], ft_atoi(argv[i]), argc - 1);
-				node = create_node(i, ft_atoi(argv[i]), index);
+				node = create_node(ft_atoi(argv[i]), index);
 			}
 			else
 				exit(EXIT_FAILURE);
@@ -67,7 +67,6 @@ void	stack_init(int argc, char **argv, t_engine *engine)
 		}
 	}
 }
-
 
 int	generate_chunk(int size)
 {
@@ -87,6 +86,45 @@ int	generate_chunk(int size)
 	return (chunk);
 }
 
+void	pop_push(t_stack *from, t_stack *to, char *cmd_name)
+{
+	t_node	*tmp;
+	
+	tmp = pop(from);
+	if(tmp)
+	{
+		push(to, tmp);
+		write(1, cmd_name, 2);
+		write(1, "\n", 1);
+	}
+}
+
+void	push_swap(t_engine *e)
+{
+	int	chunk;
+
+	chunk = 1;//generate_chunk(e->stack_a.count);
+	while (e->stack_a.count)
+	{
+		if (e->stack_a.head->supos_index < e->stack_b.count)
+			pop_push(&e->stack_a, &e->stack_b, "pb");
+		else if (e->stack_a.head->supos_index <= e->stack_b.count + chunk)
+		{
+			pop_push(&e->stack_a, &e->stack_b, "pb");
+			rotate(&e->stack_b, "rb");
+		}
+		else
+			rotate(&e->stack_a, "ra");
+	}
+	while (e->stack_b.count > 0)
+	{
+		if (e->stack_b.head->supos_index < e->stack_b.tail->supos_index)
+			revRotate(&e->stack_b);
+		pop_push(&e->stack_b, &e->stack_a, "pa");
+	}
+
+}
+
 int	main(int argc, char **argv)
 {
 	t_engine	engine;
@@ -98,11 +136,24 @@ int	main(int argc, char **argv)
 	engine.stack_a.count = 0;
 	engine.stack_b.count = 0;
 	stack_init(argc, argv, &engine);
-	
-	
-	rotate(&engine.stack_a);
-	revRotate(&engine.stack_a);
-	pop(&engine.stack_a);
+	// revRotate(&engine.stack_a);
+	// revRotate(&engine.stack_a);
+	// revRotate(&engine.stack_a);
+	// revRotate(&engine.stack_a);
+	// revRotate(&engine.stack_a);
+	// revRotate(&engine.stack_a);
+	// revRotate(&engine.stack_a);
+	// revRotate(&engine.stack_a);	
+	// revRotate(&engine.stack_a);
+	// revRotate(&engine.stack_a);
+	// revRotate(&engine.stack_a);
+	// revRotate(&engine.stack_a);
+	// revRotate(&engine.stack_a);
+	// revRotate(&engine.stack_a);
+	// revRotate(&engine.stack_a);
+	// revRotate(&engine.stack_a);
+	print_stack(&engine.stack_a);
+	push_swap(&engine);
 	print_stack(&engine.stack_a);
 	return (0);
 }
