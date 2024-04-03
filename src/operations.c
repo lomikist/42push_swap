@@ -84,12 +84,14 @@ int	rotate(t_stack *stack, char *cmd)
 	return (0);
 }
 
-int	revRotate(t_stack *stack)
+int	revRotate(t_stack *stack, char *cmd)
 {
 	if (stack != NULL && (stack->head != stack->tail))
 	{
 		stack->tail = stack->tail->next;
 		stack->head = stack->tail->prev;
+		write(1, cmd, 2);
+		write(1, "\n", 1);
 	}
 	return (0);
 }

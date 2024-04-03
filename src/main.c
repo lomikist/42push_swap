@@ -99,30 +99,50 @@ void	pop_push(t_stack *from, t_stack *to, char *cmd_name)
 	}
 }
 
+void	find_max_and_rotate(t_stack *stack)
+{
+	t_node	*temp;
+	int		i;
+
+	i = 0;
+	while (i < stack->count)
+	{
+		if (stack->supos_index == stack->count - 1)
+			if (i > stack->count - i - 1)
+			{
+				while (i++ != stack->count)
+					revRotate(stack, "rrb");
+			}
+			else
+				while (i-- > 0)
+					rotate(stack, "rb");
+			break ;
+		i++;
+	}
+}
+
 void	push_swap(t_engine *e)
 {
 	int	chunk;
-
-	chunk = 1;//generate_chunk(e->stack_a.count);
+	int	
+	chunk = generate_chunk(e->stack_a.count);
 	while (e->stack_a.count)
 	{
-		if (e->stack_a.head->supos_index < e->stack_b.count)
-			pop_push(&e->stack_a, &e->stack_b, "pb");
-		else if (e->stack_a.head->supos_index < e->stack_b.count + chunk)
+		if (e->stack_a.head->supos_index <= e->stack_b.count)
 		{
 			pop_push(&e->stack_a, &e->stack_b, "pb");
 			rotate(&e->stack_b, "rb");
 		}
+		else if (e->stack_a.head->supos_index <= e->stack_b.count + chunk)
+			pop_push(&e->stack_a, &e->stack_b, "pb");
 		else
 			rotate(&e->stack_a, "ra");
 	}
 	while (e->stack_b.count > 0)
 	{
-		if (e->stack_b.head->supos_index < e->stack_b.tail->supos_index)
-			revRotate(&e->stack_b);
+		find_max_and_rotate(&e->stack_b);
 		pop_push(&e->stack_b, &e->stack_a, "pa");
 	}
-
 }
 
 int	main(int argc, char **argv)
