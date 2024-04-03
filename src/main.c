@@ -108,7 +108,7 @@ void	push_swap(t_engine *e)
 	{
 		if (e->stack_a.head->supos_index < e->stack_b.count)
 			pop_push(&e->stack_a, &e->stack_b, "pb");
-		else if (e->stack_a.head->supos_index <= e->stack_b.count + chunk)
+		else if (e->stack_a.head->supos_index < e->stack_b.count + chunk)
 		{
 			pop_push(&e->stack_a, &e->stack_b, "pb");
 			rotate(&e->stack_b, "rb");
@@ -136,22 +136,6 @@ int	main(int argc, char **argv)
 	engine.stack_a.count = 0;
 	engine.stack_b.count = 0;
 	stack_init(argc, argv, &engine);
-	// revRotate(&engine.stack_a);
-	// revRotate(&engine.stack_a);
-	// revRotate(&engine.stack_a);
-	// revRotate(&engine.stack_a);
-	// revRotate(&engine.stack_a);
-	// revRotate(&engine.stack_a);
-	// revRotate(&engine.stack_a);
-	// revRotate(&engine.stack_a);	
-	// revRotate(&engine.stack_a);
-	// revRotate(&engine.stack_a);
-	// revRotate(&engine.stack_a);
-	// revRotate(&engine.stack_a);
-	// revRotate(&engine.stack_a);
-	// revRotate(&engine.stack_a);
-	// revRotate(&engine.stack_a);
-	// revRotate(&engine.stack_a);
 	print_stack(&engine.stack_a);
 	push_swap(&engine);
 	print_stack(&engine.stack_a);
