@@ -89,9 +89,9 @@ int	generate_chunk(int size)
 void	pop_push(t_stack *from, t_stack *to, char *cmd_name)
 {
 	t_node	*tmp;
-	
+
 	tmp = pop(from);
-	if(tmp)
+	if (tmp)
 	{
 		push(to, tmp);
 		write(1, cmd_name, 2);
@@ -104,10 +104,12 @@ void	find_max_and_rotate(t_stack *stack)
 	t_node	*temp;
 	int		i;
 
+	temp = stack->head;
 	i = 0;
 	while (i < stack->count)
 	{
-		if (stack->supos_index == stack->count - 1)
+		if (temp->supos_index == stack->count - 1)
+		{
 			if (i > stack->count - i - 1)
 			{
 				while (i++ != stack->count)
@@ -117,6 +119,8 @@ void	find_max_and_rotate(t_stack *stack)
 				while (i-- > 0)
 					rotate(stack, "rb");
 			break ;
+		}
+		temp = temp->next;
 		i++;
 	}
 }
@@ -124,7 +128,7 @@ void	find_max_and_rotate(t_stack *stack)
 void	push_swap(t_engine *e)
 {
 	int	chunk;
-	int	
+
 	chunk = generate_chunk(e->stack_a.count);
 	while (e->stack_a.count)
 	{
