@@ -110,17 +110,24 @@ void	find_max_and_rotate(t_stack *stack)
 	{
 		if (temp->supos_index == stack->count - 1)
 		{
-			if (i > stack->count - i - 1)
+			if (i >= stack->count / 2)
 			{
-				while (i++ != stack->count)
+				while (i != stack->count)
+				{
 					revRotate(stack, "rrb");
+					++i;
+				}
 			}
-			else
-				while (i-- > 0)
+			else 
+			{
+				while (--i >= 0)
+				{
 					rotate(stack, "rb");
+				}
+			}
 			break ;
 		}
-		temp = temp->next;
+		temp = temp->prev;
 		i++;
 	}
 }
@@ -133,12 +140,12 @@ void	push_swap(t_engine *e)
 	while (e->stack_a.count)
 	{
 		if (e->stack_a.head->supos_index <= e->stack_b.count)
+			pop_push(&e->stack_a, &e->stack_b, "pb");
+		else if (e->stack_a.head->supos_index <= e->stack_b.count + chunk)
 		{
 			pop_push(&e->stack_a, &e->stack_b, "pb");
 			rotate(&e->stack_b, "rb");
 		}
-		else if (e->stack_a.head->supos_index <= e->stack_b.count + chunk)
-			pop_push(&e->stack_a, &e->stack_b, "pb");
 		else
 			rotate(&e->stack_a, "ra");
 	}
