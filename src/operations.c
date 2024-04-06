@@ -90,7 +90,7 @@ int	revRotate(t_stack *stack, char *cmd)
 	{
 		stack->tail = stack->tail->next;
 		stack->head = stack->tail->prev;
-		write(1, cmd, 2);
+		write(1, cmd, 3);
 		write(1, "\n", 1);
 	}
 	return (0);
