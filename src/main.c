@@ -1,9 +1,9 @@
 #include "../includes/stack.h"
 
-void	error_message(char *sms, int count)
+void	message(char *sms, int count, int status)
 {
 	write(1, sms, count);
-	exit(EXIT_FAILURE);
+	exit(status);
 }
 
 void	init_sorted_array(int *arr, int argc, char **argv)
@@ -17,6 +17,8 @@ void	init_sorted_array(int *arr, int argc, char **argv)
 			arr[i - 1] = 0;
 		else if (ft_atoi(argv[i]))
 			arr[i - 1] = ft_atoi(argv[i]);
+		else
+			message("Error", 5, EXIT_FAILURE);
 	}
 	bubbleSort(&arr[0], argc - 1);
 }
@@ -62,25 +64,21 @@ void	init_stack(int *arr, int argc, char **argv, t_engine *engine)
 	int		number;
 	int		i;
 	int		index;
+	int		is_sorted;
 
-	i = 0;
-	while (argv[++i])
+	is_sorted = 1;
+	i = argc;
+	while (argv[--i] && i > 0)
 	{
 		number = ft_atoi(argv[i]);
-		if (argv[i][0] == '0' && !argv[i][1])
-		{
-			index = find_index(&arr[0], 0, argc - 1);
-			node = create_node(0, index);
-		}
-		else if (ft_atoi(argv[i]))
-		{
-			index = find_index(&arr[0], ft_atoi(argv[i]), argc - 1);
-			node = create_node(ft_atoi(argv[i]), index);
-		}
-		else
-			exit(EXIT_FAILURE);
+		if (is_sorted && i != argc - 1 && number > node->data)
+			is_sorted = 0;
+		index = find_index(&arr[0], ft_atoi(argv[i]), argc - 1);
+		node = create_node(ft_atoi(argv[i]), index);
 		push(&engine->stack_a, node);
 	}
+	if (is_sorted)
+		message("", 0, EXIT_SUCCESS);
 }
 
 void	init_components(int argc, char **argv, t_engine *engine)
@@ -88,14 +86,15 @@ void	init_components(int argc, char **argv, t_engine *engine)
 	int		*arr;
 
 	if (argc <= 1)
-		error_message("Wrong count of arguments!", 25);
+		message("Error", 5, EXIT_FAILURE);
 	else
 	{
-		arr = malloc(sizeof(int) * (argc - 1));//TODO free
+		arr = malloc(sizeof(int) * (argc - 1));
 		init_sorted_array(&arr[0], argc, argv);
 		if (check_for_dublicate(&arr[0], argc - 1) == 1)
-			error_message("duplicated elementttsssssss!", 25);
+			message("Error", 5, EXIT_FAILURE);
 		init_stack(&arr[0], argc, argv, engine);
+		free(arr);
 	}
 }
 
@@ -198,8 +197,8 @@ int	main(int argc, char **argv)
 	engine.stack_a.count = 0;
 	engine.stack_b.count = 0;
 	init_components(argc, argv, &engine);
-	// print_stack(&engine.stack_a);
+	//print_stack(&engine.stack_a);
 	push_swap(&engine);
-	// print_stack(&engine.stack_a);
+	//print_stack(&engine.stack_a);
 	return (0);
 }
