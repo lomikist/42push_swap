@@ -1,11 +1,17 @@
-int	foo(char *str, int i, unsigned int number, int sign)
+#include "../includes/stack.h"
+#include <limits.h>
+
+long	foo(char *str, int sign)
 {
-	while (str[i] != '\0')
+	long	number;
+
+	number = 0;
+	while (*str != '\0')
 	{
-		if (str[i] <= '9' && str[i] >= '0')
+		if (*str <= '9' && *str >= '0')
 		{
-			number = number * 10 + (str[i] - '0');
-			i++;
+			number = number * 10 + (*str - '0');
+			str++;
 		}
 		else
 			return (0);
@@ -15,19 +21,20 @@ int	foo(char *str, int i, unsigned int number, int sign)
 
 int	ft_atoi(char *str)
 {
-	int				i;
-	unsigned int	number;
-	int				sign;
+	long	number;
+	int		sign;
 
 	sign = 1;
-	i = 0;
 	number = 0;
-	if (str[i] == '-')
+	if (*str == '-')
 	{
 		sign = -1;
-		i++;
+		str++;
 	}
-	else if (str[i] == '+')
-		i++;
-	return (foo((char *)str, i, number, sign));
+	else if (*str == '+')
+		str++;
+	number = foo(str, sign);
+	if (number < INT_MIN || number > INT_MAX)
+		message("Error\n", 6, EXIT_FAILURE);
+	return (number);
 }

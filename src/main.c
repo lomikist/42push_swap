@@ -2,25 +2,25 @@
 
 void	message(char *sms, int count, int status)
 {
-	write(1, sms, count);
+	write(2, sms, count);
 	exit(status);
 }
 
-void	init_sorted_array(int *arr, int argc, char **argv)
+void	init_sorted_array(int *arr, int len, char **args)
 {
 	int	i;
 
-	i = 0;
-	while (argv[++i])
+	i = -1;
+	while (args[++i])
 	{
-		if (argv[i][0] == '0' && !argv[i][1])
-			arr[i - 1] = 0;
-		else if (ft_atoi(argv[i]))
-			arr[i - 1] = ft_atoi(argv[i]);
+		if (args[i][0] == '0' && !args[i][1])
+			arr[i] = 0;
+		else if (ft_atoi(args[i]))
+			arr[i] = ft_atoi(args[i]);
 		else
-			message("Error", 5, EXIT_FAILURE);
+			message("Error\n", 6, EXIT_FAILURE);
 	}
-	bubbleSort(&arr[0], argc - 1);
+	bubbleSort(&arr[0], len);
 }
 
 int	find_index(int *arr, int to_find, int len)
@@ -58,42 +58,49 @@ int	check_for_dublicate(int *arr, int size)
 	return (0);
 }
 
-void	init_stack(int *arr, int argc, char **argv, t_engine *engine)
+void	init_stack(int *arr, int len, char **args, t_engine *engine)
 {
 	t_node	*node;
 	int		number;
 	int		i;
+
 	int		index;
 	int		is_sorted;
 
 	is_sorted = 1;
-	i = argc;
-	while (argv[--i] && i > 0)
+	i = len;
+	while (args[--i] && i >= 0)
 	{
-		number = ft_atoi(argv[i]);
-		if (is_sorted && i != argc - 1 && number > node->data)
+		number = ft_atoi(args[i]);
+		if (is_sorted && i != len - 1 && number > node->data)
 			is_sorted = 0;
-		index = find_index(&arr[0], ft_atoi(argv[i]), argc - 1);
-		node = create_node(ft_atoi(argv[i]), index);
+		index = find_index(&arr[0], number, len);
+		node = create_node(number, index);
 		push(&engine->stack_a, node);
 	}
 	if (is_sorted)
 		message("", 0, EXIT_SUCCESS);
 }
 
-void	init_components(int argc, char **argv, t_engine *engine)
+void	init_components(int len, char **args, t_engine *engine)
 {
 	int		*arr;
 
-	if (argc <= 1)
-		message("Error", 5, EXIT_FAILURE);
+	if (len == 1)
+	{
+		args = ft_split(args[0], ' ');
+		len = -1;
+		while (args[++len] != NULL);
+	}
+	if (len <= 0)
+		message("Error\n", 6, EXIT_FAILURE);
 	else
 	{
-		arr = malloc(sizeof(int) * (argc - 1));
-		init_sorted_array(&arr[0], argc, argv);
-		if (check_for_dublicate(&arr[0], argc - 1) == 1)
-			message("Error", 5, EXIT_FAILURE);
-		init_stack(&arr[0], argc, argv, engine);
+		arr = malloc(sizeof(int) * len);
+		init_sorted_array(&arr[0], len, args);
+		if (check_for_dublicate(&arr[0], len) == 1)
+			message("Error\n", 6, EXIT_FAILURE);
+		init_stack(&arr[0], len, args, engine);
 		free(arr);
 	}
 }
@@ -196,7 +203,7 @@ int	main(int argc, char **argv)
 	engine.stack_b.tail = NULL;
 	engine.stack_a.count = 0;
 	engine.stack_b.count = 0;
-	init_components(argc, argv, &engine);
+	init_components(argc - 1, argv + 1, &engine);
 	//print_stack(&engine.stack_a);
 	push_swap(&engine);
 	//print_stack(&engine.stack_a);
