@@ -54,7 +54,7 @@ t_node	*pop(t_stack *stack)
 	return (temp);
 }
 
-int	swap(t_stack *stack)
+int	swap(t_stack *stack, char *cmd)
 {
 	// int	temp_index;
 	int	temp_data;
@@ -67,6 +67,8 @@ int	swap(t_stack *stack)
 		// stack->head->index = stack->head->prev->index;
 		stack->head->prev->data = temp_data;
 		// stack->head->prev->index = temp_index;
+		write(1, cmd, 2);
+		write(1, "\n", 1);
 		return (1);
 	}
 	return (0);
