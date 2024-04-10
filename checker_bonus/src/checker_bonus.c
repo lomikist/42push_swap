@@ -24,7 +24,7 @@ void	init_components(int len, char **args, t_engine *engine)
 		init_sorted_array(&arr[0], len, args);
 		if (check_for_dublicate(&arr[0], len) == 1)
 			message("Error\n", 6, EXIT_FAILURE);
-		init_stack(&arr[0], len, args, engine);
+		init_stack(&arr[0], len, args, engine); 
 		free(arr);
 	}
 }
