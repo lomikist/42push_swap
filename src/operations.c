@@ -15,7 +15,7 @@ t_node	*create_node(int data, int supos_index)
 
 int	push(t_stack *stack, t_node *node)
 {
-	if (stack->head != NULL)
+	if (stack->count != 0)
 	{
 		stack->head->next = node;
 		node->next = stack->tail;
@@ -49,12 +49,12 @@ t_node	*pop(t_stack *stack)
 		stack->head->next = stack->tail;
 		temp->next = NULL;
 		temp->prev = NULL;
+		stack->count--;
 	}
-	stack->count--;
 	return (temp);
 }
 
-int	swap(t_stack *stack)
+int	swap(t_stack *stack, char *cmd)
 {
 	// int	temp_index;
 	int	temp_data;
@@ -67,6 +67,8 @@ int	swap(t_stack *stack)
 		// stack->head->index = stack->head->prev->index;
 		stack->head->prev->data = temp_data;
 		// stack->head->prev->index = temp_index;
+		write(1, cmd, 2);
+		write(1, "\n", 1);
 		return (1);
 	}
 	return (0);
@@ -74,7 +76,7 @@ int	swap(t_stack *stack)
 
 int	rotate(t_stack *stack, char *cmd)
 {
-	if (stack != NULL && (stack->head != stack->tail))
+	if (stack != NULL && stack->count != 0 && (stack->head != stack->tail))
 	{
 		stack->head = stack->head->prev;
 		stack->tail = stack->head->next;
@@ -84,12 +86,14 @@ int	rotate(t_stack *stack, char *cmd)
 	return (0);
 }
 
-int	revRotate(t_stack *stack)
+int	revRotate(t_stack *stack, char *cmd)
 {
-	if (stack != NULL && (stack->head != stack->tail))
+	if (stack != NULL && stack->count != 0 && (stack->head != stack->tail))
 	{
 		stack->tail = stack->tail->next;
 		stack->head = stack->tail->prev;
+		write(1, cmd, 3);
+		write(1, "\n", 1);
 	}
 	return (0);
 }

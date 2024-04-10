@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stddef.h>
+#include "../libft/libft.h"
 
 typedef struct s_node
 {
@@ -28,12 +29,14 @@ typedef struct s_engine
 }	t_engine;
 
 int		ft_atoi(char *str);
+
 t_node	*create_node(int data, int supos_index);
+void	message(char *sms, int count, int status);
 int	push(t_stack *stack, t_node *node);
 t_node	*pop(t_stack *stack);
-int	swap(t_stack *stack);
+int	swap(t_stack *stack, char *cmd);
 int rotate(t_stack *stack, char *cmd);
-int	revRotate(t_stack *stack);
+int	revRotate(t_stack *stack, char *cmd);
 void 	bubbleSort(int *arr, int count);
 void	print_stack(t_stack *stack);
 
