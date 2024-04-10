@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stddef.h>
-#include "../libft/libft.h"
+// #include "../libft/libft.h"
 
 typedef struct s_node
 {
@@ -28,7 +28,7 @@ typedef struct s_engine
 	t_stack	stack_b;
 }	t_engine;
 
-int		ft_atoi(char *str);
+long		ft_atoi(char *str);
 
 t_node	*create_node(int data, int supos_index);
 void	message(char *sms, int count, int status);
