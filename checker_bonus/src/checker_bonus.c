@@ -6,9 +6,27 @@ void    exec(t_engine *e, int fd)
     (void)fd;
 }
 
-void    check(t_engine *e)
+void	init_components(int len, char **args, t_engine *engine)
 {
-    (void)e;
+	int		*arr;
+
+	if (len == 1)
+	{
+		args = ft_split(args[0], ' ');
+		len = -1;
+		while (args[++len] != NULL);
+	}
+	if (len <= 0)
+		message("Error\n", 6, EXIT_FAILURE);
+	else
+	{
+		arr = malloc(sizeof(int) * len);
+		init_sorted_array(&arr[0], len, args);
+		if (check_for_dublicate(&arr[0], len) == 1)
+			message("Error\n", 6, EXIT_FAILURE);
+		init_stack(&arr[0], len, args, engine);
+		free(arr);
+	}
 }
 
 int main(int argc, char **argv)
