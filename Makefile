@@ -1,4 +1,5 @@
-NAME			= push_swap
+TARGET			= push_swap
+CHECKER			= checker
 CC				= cc
 CFLAGS			= -Wall -Wextra -Werror -g #-fsanitize=address
 OS				= $(shell uname)
@@ -17,6 +18,9 @@ SRC_FILES		= main.c \
 				  ft_atoi.c \
 				  sort.c \
 				  utils.c
+CHECKER_SRC_FILES	= checker.c \
+					  get_next_line.c
+
 #LIBFT
 LIBFT_DIR	= libft
 LIBFT 		= $(LIBFT_DIR)/libft.a
@@ -26,8 +30,10 @@ LINKER 		+= -lft -L $(LIBFT_DIR)
 OBJS_DIR		= objs/
 OBJ_FILES		= $(SRC_FILES:.c=.o)
 OBJS			= $(addprefix $(OBJS_DIR), $(OBJ_FILES))
+CHECKER_OBJ_FILES	= $(CHECKER_SRC_FILES:.c=.o)
+CHECKER_OBJS		= $(addprefix $(OBJS_DIR), $(CHECKER_OBJ_FILES))
 
-all : $(LIBFT) $(OBJS_DIR) $(NAME)
+all : $(LIBFT) $(OBJS_DIR) $(TARGET) $(CHECKER)
 
 $(LIBFT) :
 	@echo $(CYAN) " - Making libft..." $(RESET)
@@ -37,9 +43,14 @@ $(LIBFT) :
 $(OBJS_DIR) :
 	@$(MKDIR) $(OBJS_DIR)
 
-$(NAME) : $(OBJS)
-	@echo $(GREEN) " - Compiling $(NAME)..." $(RESET)
-	@$(CC) $(CFLAGS) $(OBJS) $(LINKER) -o $(NAME)
+$(TARGET) : $(OBJS)
+	@echo $(GREEN) " - Compiling $(TARGET)..." $(RESET)
+	@$(CC) $(CFLAGS) $(OBJS) $(LINKER) -o $(TARGET)
+	@echo $(YELLOW) " - Compiling FINISHED" $(RESET)
+
+$(CHECKER) : $(CHECKER_OBJS)
+	@echo $(GREEN) " - Compiling $(CHECKER)..." $(RESET)
+	@$(CC) $(CFLAGS) $(CHECKER_OBJS) $(LINKER) -o $(CHECKER)
 	@echo $(YELLOW) " - Compiling FINISHED" $(RESET)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(INCLUDES)
@@ -50,7 +61,7 @@ clean :
 	@echo $(RED) " - Cleaned!" $(RESET)
 
 fclean : clean
-	@$(RM) $(NAME)
+	@$(RM) $(TARGET) $(CHECKER)
 	@$(MAKE) $(LIBFT_DIR) fclean
 
 re: fclean all

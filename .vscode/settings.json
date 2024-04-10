@@ -1,6 +1,9 @@
 {
 	"files.associations": {
 		"stack.h": "c",
-		"valarray": "c"
+		"valarray": "c",
+		"checker.h": "c",
+		"get_next_line.h": "c",
+		"libft.h": "c"
 	}
 }

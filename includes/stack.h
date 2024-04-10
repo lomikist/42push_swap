@@ -39,5 +39,8 @@ int rotate(t_stack *stack, char *cmd);
 int	revRotate(t_stack *stack, char *cmd);
 void 	bubbleSort(int *arr, int count);
 void	print_stack(t_stack *stack);
+void	init_components(int len, char **args, t_engine *engine);
+void	push_swap(t_engine *e);
+void	pop_push(t_stack *from, t_stack *to, char *cmd_name);
 
 #endif
