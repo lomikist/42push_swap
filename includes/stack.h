@@ -28,7 +28,7 @@ typedef struct s_engine
 	t_stack	stack_b;
 }	t_engine;
 
-int		ft_atoi(char *str);
+long		ft_atoi(char *str);
 
 t_node	*create_node(int data, int supos_index);
 void	message(char *sms, int count, int status);

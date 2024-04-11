@@ -19,7 +19,7 @@ long	foo(char *str, int sign)
 	return (number * sign);
 }
 
-int	ft_atoi(char *str)
+long	ft_atoi(char *str)
 {
 	long	number;
 	int		sign;

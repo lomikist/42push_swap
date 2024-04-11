@@ -5,7 +5,6 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stddef.h>
-// #include "../libft/libft.h"
 
 typedef struct s_node
 {
