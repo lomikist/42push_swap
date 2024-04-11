@@ -9,7 +9,7 @@ INCLUDES_DIR 	= includes
 INCLUDES_FLAG 	= -I$(INCLUDES_DIR) -I$(LIBFT_DIR) 
 INCLUDES		= $(wildcard $(INCLUDES_DIR)/*.h) $(LIBFT_DIR)/libft.h 
 
-SRCS_DIR		= srcs
+SRCS_DIR		= src
 SRCS			= $(wildcard $(SRCS_DIR)/*.c)
 OBJS_DIR		= objs
 OBJS			= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
