@@ -1,11 +1,16 @@
 #include "../includes/stack.h"
 
+void	message(char *sms, int count, int status)
+{
+	write(2, sms, count);
+	exit(status);
+}
+
 t_node	*create_node(int data, int supos_index)
 {
 	t_node	*new_node;
 
 	new_node = malloc((sizeof(int) * 2) + (sizeof(void *) * 2));
-	// new_node->index = index;
 	new_node->data = data;
 	new_node->supos_index = supos_index;
 	new_node->prev = NULL;
@@ -56,17 +61,13 @@ t_node	*pop(t_stack *stack)
 
 int	swap(t_stack *stack, char *cmd)
 {
-	// int	temp_index;
 	int	temp_data;
 
 	if (stack != NULL && (stack->head != stack->tail))
 	{
 		temp_data = stack->head->data;
-		// temp_index = stack->head->index;
 		stack->head->data = stack->head->prev->data;
-		// stack->head->index = stack->head->prev->index;
 		stack->head->prev->data = temp_data;
-		// stack->head->prev->index = temp_index;
 		write(1, cmd, 2);
 		write(1, "\n", 1);
 		return (1);
@@ -98,3 +99,15 @@ int	revRotate(t_stack *stack, char *cmd)
 	return (0);
 }
 
+void	pop_push(t_stack *from, t_stack *to, char *cmd_name)
+{
+	t_node	*tmp;
+
+	tmp = pop(from);
+	if (tmp)
+	{
+		push(to, tmp);
+		write(1, cmd_name, 2);
+		write(1, "\n", 1);
+	}
+}

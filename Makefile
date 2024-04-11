@@ -67,8 +67,11 @@ re: fclean all
 bonus : $(CHECKER_NAME)
 
 $(CHECKER_NAME) : $(OBJS_BONUS)
+	@echo $(CYAN) " - Making libft..." $(RESET)
+	@$(MAKE) $(LIBFT_DIR)
+	@echo $(YELLOW) " - Made libft!" $(RESET)
 	@echo $(GREEN) " - Compiling $(CHECKER_NAME)..." $(RESET)
-	@$(CC) $(CFLAGS) $(OBJS_BONUS) -o $(CHECKER_NAME)
+	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT_FLAGS) -o $(CHECKER_NAME)
 	@echo $(YELLOW) " - Compiling FINISHED" $(RESET)
 
 $(OBJS_DIR_BONUS)/%.o : $(CHECKER_DIR)/$(SRCS_DIR)/%.c $(CHECKER_INCLUDE) | $(OBJS_DIR_BONUS)

@@ -16,7 +16,7 @@ char	*read_one_line(char *str, int fd)
 			return (NULL);
 		str_read[count] = '\0';
 		if (str)
-			str = ft_strjoin(str, str_read);
+			str = ft_strjoin_free(str, str_read);
 		else
 			str = ft_strdup(str_read);
 		if (!str)
