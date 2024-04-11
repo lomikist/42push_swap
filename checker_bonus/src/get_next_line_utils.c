@@ -1,48 +1,102 @@
-#include "../includes/get_next_line_bonus.h"
-
-char	*read_one_line(char *str, int fd)
+size_t	ft_strlen(const char *s)
 {
-	char	str_read[BUFFER_SIZE + 1];
-	int		count;
+	int	i;
 
-	count = -1;
-	while (++count <= BUFFER_SIZE)
-		str_read[count] = '\0';
-	count = 1;
-	while (!ft_strchr(str_read, '\n') && count)
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		++i;
+	return (i);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
 	{
-		count = read(fd, str_read, BUFFER_SIZE);
-		if (count < 0 || (!count && !str))
-			return (NULL);
-		str_read[count] = '\0';
-		if (str)
-			str = ft_strjoin(str, str_read);
-		else
-			str = ft_strdup(str_read);
-		if (!str)
-			return (NULL);
+		if (s[i] == (char)c)
+			return ((char *)(s + i));
+		++i;
 	}
+	if (s[i] == (char)c)
+		return ((char *)(s + i));
+	return (NULL);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*dst;
+	size_t	i;
+
+	i = ft_strlen(s1);
+	dst = (char *)malloc(sizeof(char) * (i + 1));
+	if (!dst)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		dst[i] = s1[i];
+		++i;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
+
+char	*ft_strjoin(char *s1, const char *s2)
+{
+	char	*str;
+	size_t	i;
+	size_t	j;
+
+	if (!s1 || !s2)
+		return (NULL);
+	str = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		++i;
+	}
+	j = 0;
+	while (s2[j])
+	{
+		str[i] = s2[j];
+		++j;
+		++i;
+	}
+	free(s1);
+	str[i] = '\0';
 	return (str);
 }
 
-char	*get_next_line(int fd)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
-	static char	*tail_str;
-	int			i;
-	char		*str;
-	char		*temp;
+	char	*substr;
+	size_t	len_s;
+	size_t	i;
 
+	if (!s || !len)
+		return (NULL);
+	len_s = ft_strlen(s);
+	if (start >= len_s)
+		len = 0;
+	if (len > len_s - start)
+		len = len_s - start;
+	substr = (char *)malloc(len + 1);
+	if (!substr)
+		return (NULL);
 	i = 0;
-	if (fd < 0 || BUFFER_SIZE < 1)
-		return (NULL);
-	tail_str = read_one_line(tail_str, fd);
-	if (!tail_str)
-		return (NULL);
-	while (tail_str[i] != '\n' && tail_str[i + 1])
-		i++;
-	str = ft_substr(tail_str, 0, i + 1);
-	temp = tail_str;
-	tail_str = ft_substr(tail_str, i + 1, ft_strlen(tail_str) - i - 1);
-	free(temp);
-	return (str);
+	while (i < len && s[start])
+	{
+		substr[i] = s[start];
+		++start;
+		++i;
+	}
+	substr[i] = '\0';
+	return (substr);
 }
