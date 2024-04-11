@@ -4,6 +4,6 @@
 # include "get_next_line_bonus.h"
 
 void    exec(t_engine *e, int fd);
-void    check(t_engine *e);
+int    check(t_engine *e);
 
 #endif

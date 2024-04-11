@@ -37,9 +37,9 @@ void	exec(t_engine *engine, int fd)
 	char *command;
 
 	command = get_next_line(fd);
-	while (1)
+	while (command)
 	{
-		if (command[0] = '\0')
+		if (command[0] == '\0')
 			break;
 		else if (!ft_strcmp(command, "rra\n"))
 			revRotate(&engine->stack_a);
@@ -74,9 +74,26 @@ void	exec(t_engine *engine, int fd)
 		}
 		else
 			message("Error\n", 6, EXIT_FAILURE);
+		command = get_next_line(fd);
 	}
 }
 
+int	check(t_engine *engine)
+{
+	int		i;
+	t_node	*current;
+
+	i = 0;
+	current = engine->stack_a.head;
+	while (i < engine->stack_a.count)
+	{
+		current = current->prev;
+		if (current->data > current->prev->data)
+			return (0);		
+		i++;
+	}
+	return (1);
+}
 int main(int argc, char **argv)
 {
 	t_engine	engine;
@@ -90,6 +107,10 @@ int main(int argc, char **argv)
 	init_stack(argc - 1, argv + 1, &engine);
 
 	exec(&engine, 0);
+	if(check(&engine))
+	{
+		message("ok\n", 2, EXIT_SUCCESS);
+	}
 	print_stack(&engine.stack_a);
 	return (0);
 }
