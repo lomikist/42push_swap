@@ -33,13 +33,13 @@ t_node	*create_node(int data, int supos_index);
 void	message(char *sms, int count, int status);
 int	push(t_stack *stack, t_node *node);
 t_node	*pop(t_stack *stack);
-int	swap(t_stack *stack, char *cmd);
-int rotate(t_stack *stack, char *cmd);
-int	revRotate(t_stack *stack, char *cmd);
+int	swap(t_stack *stack);
+int rotate(t_stack *stack);
+int	revRotate(t_stack *stack);
 void 	bubbleSort(int *arr, int count);
 void	print_stack(t_stack *stack);
 void	init_components(int len, char **args, t_engine *engine);
 void	push_swap(t_engine *e);
-void	pop_push(t_stack *from, t_stack *to, char *cmd_name);
+void	pop_push(t_stack *from, t_stack *to);
 
 #endif

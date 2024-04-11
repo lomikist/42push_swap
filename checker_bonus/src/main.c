@@ -14,15 +14,66 @@ void	init_stack(int argc, char **argv, t_engine *engine)
 		push(&engine->stack_a, node);
 	}
 }
+void	pop_push(t_stack *from, t_stack *to)
+{
+	t_node	*tmp;
 
+	tmp = pop(from);
+	if (tmp)
+		push(to, tmp);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
+}
 void	exec(t_engine *engine, int fd)
 {
 	char *command;
 
 	command = get_next_line(fd);
-	if (1)
+	while (1)
 	{
-		revRotate(&engine->stack_a, "ra");
+		if (command[0] = '\0')
+			break;
+		else if (!ft_strcmp(command, "rra\n"))
+			revRotate(&engine->stack_a);
+		else if (!ft_strcmp(command, "rrb\n"))
+			revRotate(&engine->stack_b);
+		else if (!ft_strcmp(command, "ra\n"))
+			rotate(&engine->stack_a);
+		else if (!ft_strcmp(command, "rb\n"))
+			rotate(&engine->stack_b);
+		else if (!ft_strcmp(command, "sa\n"))
+			swap(&engine->stack_a);
+		else if (!ft_strcmp(command, "sb\n"))
+			swap(&engine->stack_b);		
+		else if (!ft_strcmp(command, "ss\n"))
+		{
+			swap(&engine->stack_a);
+			swap(&engine->stack_b);
+		}
+		else if (!ft_strcmp(command, "pa\n"))
+			pop_push(&engine->stack_b, &engine->stack_a);
+		else if (!ft_strcmp(command, "pb\n"))
+			pop_push(&engine->stack_a, &engine->stack_b);
+		else if (!ft_strcmp(command, "rrr\n"))
+		{
+			revRotate(&engine->stack_b);
+			revRotate(&engine->stack_a);
+		}
+		else if (!ft_strcmp(command, "rr\n"))
+		{
+			rotate(&engine->stack_b);
+			rotate(&engine->stack_a);
+		}
+		else
+			message("Error\n", 6, EXIT_FAILURE);
 	}
 }
 
@@ -38,7 +89,7 @@ int main(int argc, char **argv)
 	engine.stack_b.count = 0;
 	init_stack(argc - 1, argv + 1, &engine);
 
-	exec(&engine, 1);
+	exec(&engine, 0);
 	print_stack(&engine.stack_a);
 	return (0);
 }

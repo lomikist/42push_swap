@@ -54,7 +54,7 @@ t_node	*pop(t_stack *stack)
 	return (temp);
 }
 
-int	swap(t_stack *stack, char *cmd)
+int	swap(t_stack *stack)
 {
 	// int	temp_index;
 	int	temp_data;
@@ -67,33 +67,27 @@ int	swap(t_stack *stack, char *cmd)
 		// stack->head->index = stack->head->prev->index;
 		stack->head->prev->data = temp_data;
 		// stack->head->prev->index = temp_index;
-		write(1, cmd, 2);
-		write(1, "\n", 1);
 		return (1);
 	}
 	return (0);
 }
 
-int	rotate(t_stack *stack, char *cmd)
+int	rotate(t_stack *stack)
 {
 	if (stack != NULL && stack->count != 0 && (stack->head != stack->tail))
 	{
 		stack->head = stack->head->prev;
 		stack->tail = stack->head->next;
-		write(1, cmd, 2);
-		write(1, "\n", 1);
 	}
 	return (0);
 }
 
-int	revRotate(t_stack *stack, char *cmd)
+int	revRotate(t_stack *stack)
 {
 	if (stack != NULL && stack->count != 0 && (stack->head != stack->tail))
 	{
 		stack->tail = stack->tail->next;
 		stack->head = stack->tail->prev;
-		write(1, cmd, 3);
-		write(1, "\n", 1);
 	}
 	return (0);
 }
