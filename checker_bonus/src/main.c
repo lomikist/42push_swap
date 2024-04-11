@@ -20,7 +20,7 @@ void	exec(t_engine *engine, int fd)
 	char *command;
 
 	command = get_next_line(fd);
-	if (ft_strncmp(command, "ra",3))
+	if (1)
 	{
 		revRotate(&engine->stack_a, "ra");
 	}
