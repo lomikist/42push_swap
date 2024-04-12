@@ -1,6 +1,5 @@
 #include "../includes/stack_bonus.h"
 
-
 void	message(char *sms, int count, int status)
 {
 	write(2, sms, count);
