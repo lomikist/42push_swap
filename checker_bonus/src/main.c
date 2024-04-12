@@ -1,5 +1,58 @@
 #include "../includes/checker_bonus.h"
 
+int	exec_part1(t_engine *engine, char *command)
+{
+	if (!ft_strcmp(command, "rb\n"))
+	{
+		rotate(&engine->stack_b);
+		return (1);
+	}
+	else if (!ft_strcmp(command, "sb\n"))
+	{
+		swap(&engine->stack_b);
+		return (1);
+	}
+	else if (!ft_strcmp(command, "pa\n"))
+	{
+		pop_push(&engine->stack_b, &engine->stack_a);
+		return (1);
+	}
+	else if (!ft_strcmp(command, "rrr\n"))
+	{
+		rev_rotate(&engine->stack_b);
+		rev_rotate(&engine->stack_a);
+		return (1);
+	}
+	return (0);
+}
+
+int	exec_part2(t_engine *engine, char *command)
+{
+	if (!ft_strcmp(command, "rra\n"))
+	{
+		rev_rotate(&engine->stack_a);
+		return (1);
+	}
+	if (!ft_strcmp(command, "pb\n"))
+	{
+		pop_push(&engine->stack_a, &engine->stack_b);
+		return (1);
+	}
+	else if (!ft_strcmp(command, "rr\n"))
+	{
+		rotate(&engine->stack_b);
+		rotate(&engine->stack_a);
+		return (1);
+	}
+	else if (!ft_strcmp(command, "ss\n"))
+	{
+		swap(&engine->stack_a);
+		swap(&engine->stack_b);
+		return (1);
+	}
+	return (0);
+}
+
 void	exec(t_engine *engine, int fd)
 {
 	char	*command;
@@ -9,37 +62,16 @@ void	exec(t_engine *engine, int fd)
 	{
 		if (command[0] == '\0')
 			break ;
-		else if (!ft_strcmp(command, "rra\n"))
-			rev_rotate(&engine->stack_a);
+		else if (exec_part1(engine, command))
+			;
+		else if (exec_part2(engine, command))
+			;
+		else if (!ft_strcmp(command, "sa\n"))
+			swap(&engine->stack_a);
 		else if (!ft_strcmp(command, "rrb\n"))
 			rev_rotate(&engine->stack_b);
 		else if (!ft_strcmp(command, "ra\n"))
 			rotate(&engine->stack_a);
-		else if (!ft_strcmp(command, "rb\n"))
-			rotate(&engine->stack_b);
-		else if (!ft_strcmp(command, "sa\n"))
-			swap(&engine->stack_a);
-		else if (!ft_strcmp(command, "sb\n"))
-			swap(&engine->stack_b);		
-		else if (!ft_strcmp(command, "ss\n"))
-		{
-			swap(&engine->stack_a);
-			swap(&engine->stack_b);
-		}
-		else if (!ft_strcmp(command, "pa\n"))
-			pop_push(&engine->stack_b, &engine->stack_a);
-		else if (!ft_strcmp(command, "pb\n"))
-			pop_push(&engine->stack_a, &engine->stack_b);
-		else if (!ft_strcmp(command, "rrr\n"))
-		{
-			rev_rotate(&engine->stack_b);
-			rev_rotate(&engine->stack_a);
-		}
-		else if (!ft_strcmp(command, "rr\n"))
-		{
-			rotate(&engine->stack_b);
-			rotate(&engine->stack_a);
-		}
 		else
 			message("Error\n", 6, EXIT_FAILURE);
 		command = get_next_line(fd);
