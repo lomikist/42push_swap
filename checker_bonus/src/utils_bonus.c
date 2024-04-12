@@ -1,31 +1,17 @@
 #include "../includes/stack_bonus.h"
 #include <limits.h>
 
-
-void	print_stack(t_stack *stack)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int		i;
-	t_node	*current;
+	int	i;
 
 	i = 0;
-
-	printf("Stack contents:\n");
-	current = stack->head;
-	while (i < stack->count)
-	{
-		printf("Data: %d, suppos: %d\n", current->data, current->supos_index);
-		current = current->prev;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
 		i++;
-	}
+	return (s1[i] - s2[i]);
 }
 
-void	message(char *sms, int count, int status)
-{
-	write(2, sms, count);
-	exit(status);
-}
-
-long	foo(char *str, int sign)
+long	to_long(char *str, int sign)
 {
 	long	number;
 
@@ -57,7 +43,7 @@ long	ft_atoi(char *str)
 	}
 	else if (*str == '+')
 		str++;
-	number = foo(str, sign);
+	number = to_long(str, sign);
 	if (number < INT_MIN || number > INT_MAX)
 		message("Error\n", 6, EXIT_FAILURE);
 	return (number);

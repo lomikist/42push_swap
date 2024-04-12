@@ -1,45 +1,5 @@
 #include "../includes/checker_bonus.h"
 
-void	init_stack(int len, char **args, t_engine *engine)
-{
-	t_node	*node;
-	int		number;
-	int		i;
-
-	if (len == 1)
-	{
-		args = ft_split(args[0], ' ');
-		len = -1;
-		while (args[++len] != NULL);
-	}
-	i = len;
-	while (args[--i] && i >= 0)
-	{
-		number = ft_atoi(args[i]);
-		node = create_node(number, i);
-		push(&engine->stack_a, node);
-	}
-}
-
-void	pop_push(t_stack *from, t_stack *to)
-{
-	t_node	*tmp;
-
-	tmp = pop(from);
-	if (tmp)
-		push(to, tmp);
-}
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	return (s1[i] - s2[i]);
-}
-
 void	exec(t_engine *engine, int fd)
 {
 	char	*command;
@@ -50,9 +10,9 @@ void	exec(t_engine *engine, int fd)
 		if (command[0] == '\0')
 			break ;
 		else if (!ft_strcmp(command, "rra\n"))
-			revRotate(&engine->stack_a);
+			rev_rotate(&engine->stack_a);
 		else if (!ft_strcmp(command, "rrb\n"))
-			revRotate(&engine->stack_b);
+			rev_rotate(&engine->stack_b);
 		else if (!ft_strcmp(command, "ra\n"))
 			rotate(&engine->stack_a);
 		else if (!ft_strcmp(command, "rb\n"))
@@ -72,8 +32,8 @@ void	exec(t_engine *engine, int fd)
 			pop_push(&engine->stack_a, &engine->stack_b);
 		else if (!ft_strcmp(command, "rrr\n"))
 		{
-			revRotate(&engine->stack_b);
-			revRotate(&engine->stack_a);
+			rev_rotate(&engine->stack_b);
+			rev_rotate(&engine->stack_a);
 		}
 		else if (!ft_strcmp(command, "rr\n"))
 		{
