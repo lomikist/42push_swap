@@ -115,7 +115,10 @@ int	main(int argc, char **argv)
 	engine.stack_b.tail = NULL;
 	engine.stack_a.count = 0;
 	engine.stack_b.count = 0;
-	init_components(argc - 1, argv + 1, &engine);
-	push_swap(&engine);
+	if (argc > 1)
+	{
+		init_components(argc - 1, argv + 1, &engine);
+		push_swap(&engine);
+	}
 	return (0);
 }

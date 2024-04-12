@@ -83,6 +83,8 @@ int	check(t_engine *engine)
 	int		i;
 	t_node	*current;
 
+	if (engine->stack_b.count != 0)
+		return (0);
 	i = 0;
 	current = engine->stack_a.head;
 	while (++i < engine->stack_a.count)
@@ -104,11 +106,14 @@ int	main(int argc, char **argv)
 	engine.stack_b.tail = NULL;
 	engine.stack_a.count = 0;
 	engine.stack_b.count = 0;
-	init_stack(argc - 1, argv + 1, &engine);
-	exec(&engine, 0);
-	if (check(&engine))
-		write(1, "OK\n", 3);
-	else
-		write(1, "KO\n", 3);
+	if (argc > 1)
+	{
+		init_stack(argc - 1, argv + 1, &engine);
+		exec(&engine, 0);
+		if (check(&engine))
+			write(1, "OK\n", 3);
+		else
+			write(1, "KO\n", 3);
+	}
 	return (0);
 }
