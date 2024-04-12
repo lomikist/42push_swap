@@ -1,7 +1,7 @@
 #include "../includes/stack.h"
 #include <limits.h>
 
-void	bubbleSort(int *arr, int count)
+void	bubble_sort(int *arr, int count)
 {
 	int	i;
 	int	j;
@@ -57,7 +57,7 @@ int	generate_chunk(int size)
 	return (chunk);
 }
 
-long	foo(char *str, int sign)
+long	to_long(char *str, int sign)
 {
 	long	number;
 
@@ -89,7 +89,7 @@ long	ft_atoi(char *str)
 	}
 	else if (*str == '+')
 		str++;
-	number = foo(str, sign);
+	number = to_long(str, sign);
 	if (number < INT_MIN || number > INT_MAX)
 		message("Error\n", 6, EXIT_FAILURE);
 	return (number);

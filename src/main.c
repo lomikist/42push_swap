@@ -15,7 +15,7 @@ void	find_max_and_rotate(t_stack *stack, char *r, char *rr)
 			{
 				while (i != stack->count)
 				{
-					revRotate(stack, rr);
+					rev_rotate(stack, rr);
 					++i;
 				}
 			}
@@ -47,10 +47,10 @@ void	push_swap_3(t_engine *e)
 	else if (d1 > d3 && d3 > d2)
 		rotate(&e->stack_a, "ra");
 	else if (d1 > d3 && d2 > d1)
-		revRotate(&e->stack_a, "rra");
+		rev_rotate(&e->stack_a, "rra");
 	else if (d3 > d1 && d2 > d3)
 	{
-		revRotate(&e->stack_a, "rra");
+		rev_rotate(&e->stack_a, "rra");
 		swap(&e->stack_a, "sa");
 	}
 }
@@ -116,8 +116,6 @@ int	main(int argc, char **argv)
 	engine.stack_a.count = 0;
 	engine.stack_b.count = 0;
 	init_components(argc - 1, argv + 1, &engine);
-	//print_stack(&engine.stack_a);
 	push_swap(&engine);
-	//print_stack(&engine.stack_a);
 	return (0);
 }

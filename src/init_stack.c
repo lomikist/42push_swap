@@ -14,7 +14,7 @@ void	init_sorted_array(int *arr, int len, char **args)
 		else
 			message("Error\n", 6, EXIT_FAILURE);
 	}
-	bubbleSort(&arr[0], len);
+	bubble_sort(&arr[0], len);
 }
 
 int	find_index(int *arr, int to_find, int len)
@@ -83,7 +83,8 @@ void	init_components(int len, char **args, t_engine *engine)
 	{
 		args = ft_split(args[0], ' ');
 		len = -1;
-		while (args[++len] != NULL);
+		while (args[++len] != NULL)
+			continue ;
 	}
 	if (len <= 0)
 		message("Error\n", 6, EXIT_FAILURE);
