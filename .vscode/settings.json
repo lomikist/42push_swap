@@ -9,6 +9,7 @@
 		"stack_bonus.h": "c",
 		"stdlib.h": "c",
 		"stdio.h": "c",
-		"stddef.h": "c"
+		"stddef.h": "c",
+		"limits.h": "c"
 	}
 }

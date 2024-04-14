@@ -104,10 +104,16 @@ void	push_swap(t_engine *e)
 		pop_push(&e->stack_b, &e->stack_a, "pa");
 	}
 }
-
+void func()
+{
+	system("leaks push_swap");
+}
 int	main(int argc, char **argv)
 {
+	atexit(func);
 	t_engine	engine;
+	char		**args;
+	int			free_args;
 
 	engine.stack_a.head = NULL;
 	engine.stack_a.tail = NULL;
@@ -115,10 +121,36 @@ int	main(int argc, char **argv)
 	engine.stack_b.tail = NULL;
 	engine.stack_a.count = 0;
 	engine.stack_b.count = 0;
+	free_args = 0;
+	args = NULL;
 	if (argc > 1)
 	{
-		init_components(argc - 1, argv + 1, &engine);
-		push_swap(&engine);
+		if (argc == 2)
+		{
+			args = ft_split(argv[1], ' ');
+			argc = 1;
+			while (args[argc - 1] != NULL)
+				++argc;
+			if (argc == 1)
+				write(2, "Error\n", 6);
+			free_args = 1;
+		}
+		else
+			args = argv + 1;
+		if (!init_components(argc - 1, args, &engine))
+		{
+			if (!is_sorted(&engine))
+				push_swap(&engine);
+			free_stack(&engine.stack_a);
+		}
+		else
+			write(2, "Error\n", 6);
+		if (free_args)
+		{
+			while (--argc)
+				free(args[argc - 1]);
+			free(args);
+		}
 	}
 	return (0);
 }

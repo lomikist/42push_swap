@@ -23,20 +23,22 @@ void	bubble_sort(int *arr, int count)
 	}
 }
 
-void	print_stack(t_stack *stack)
+int	is_sorted(t_engine *engine)
 {
 	int		i;
 	t_node	*current;
 
+	if (engine->stack_b.count != 0)
+		return (0);
 	i = 0;
-	printf("Stack contents:\n");
-	current = stack->head;
-	while (i < stack->count)
+	current = engine->stack_a.head;
+	while (++i < engine->stack_a.count)
 	{
-		printf("Data: %d, suppos: %d\n", current->data, current->supos_index);
+		if (current->data > current->prev->data)
+			return (0);
 		current = current->prev;
-		i++;
 	}
+	return (1);
 }
 
 int	generate_chunk(int size)

@@ -11,10 +11,13 @@ t_node	*create_node(int data, int supos_index)
 	t_node	*new_node;
 
 	new_node = malloc((sizeof(int) * 2) + (sizeof(void *) * 2));
-	new_node->data = data;
-	new_node->supos_index = supos_index;
-	new_node->prev = NULL;
-	new_node->next = NULL;
+	if (new_node)
+	{
+		new_node->data = data;
+		new_node->supos_index = supos_index;
+		new_node->prev = NULL;
+		new_node->next = NULL;
+	}
 	return (new_node);
 }
 

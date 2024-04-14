@@ -10,11 +10,14 @@ t_node	*create_node(int data, int supos_index)
 {
 	t_node	*new_node;
 
-	new_node = malloc((sizeof(int) * 2) + (sizeof(void *) * 2));
-	new_node->data = data;
-	new_node->supos_index = supos_index;
-	new_node->prev = NULL;
-	new_node->next = NULL;
+	new_node = malloc(sizeof(t_node));
+	if (new_node)
+	{
+		new_node->data = data;
+		new_node->supos_index = supos_index;
+		new_node->prev = NULL;
+		new_node->next = NULL;
+	}
 	return (new_node);
 }
 
@@ -56,4 +59,19 @@ t_node	*pop(t_stack *stack)
 		stack->count--;
 	}
 	return (temp);
+}
+
+void	free_stack(t_stack *s)
+{
+	int	i;
+	t_node	*tmp;
+
+	i = -1;
+	tmp = s->head->prev;
+	while (++i < s->count)
+	{
+		free(s->head);
+		s->head = tmp;
+		tmp = tmp->prev;
+	}
 }
