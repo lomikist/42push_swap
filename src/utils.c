@@ -59,10 +59,19 @@ int	generate_chunk(int size)
 	return (chunk);
 }
 
-long	to_long(char *str, int sign)
+long	to_long(char *str)
 {
 	long	number;
+	int		sign;
 
+	sign = 1;
+	if (*str == '-')
+	{
+		sign = -1;
+		str++;
+	}
+	else if (*str == '+')
+		str++;
 	number = 0;
 	while (*str != '\0')
 	{
@@ -77,22 +86,12 @@ long	to_long(char *str, int sign)
 	return (number * sign);
 }
 
-long	ft_atoi(char *str)
+void	free_2d_array(void **arr, int n_rows)
 {
-	long	number;
-	int		sign;
+	int	i;
 
-	sign = 1;
-	number = 0;
-	if (*str == '-')
-	{
-		sign = -1;
-		str++;
-	}
-	else if (*str == '+')
-		str++;
-	number = to_long(str, sign);
-	if (number < INT_MIN || number > INT_MAX)
-		message("Error\n", 6, EXIT_FAILURE);
-	return (number);
+	i = -1;
+	while (++i < n_rows)
+		free(arr[i]);
+	free(arr);
 }

@@ -1,11 +1,5 @@
 #include "../includes/stack.h"
 
-void	message(char *sms, int count, int status)
-{
-	write(2, sms, count);
-	exit(status);
-}
-
 t_node	*create_node(int data, int supos_index)
 {
 	t_node	*new_node;
@@ -61,17 +55,51 @@ t_node	*pop(t_stack *stack)
 	return (temp);
 }
 
-void	free_stack(t_stack *s)
+void	free_engine(t_engine *s)
 {
-	int	i;
+	int		i;
 	t_node	*tmp;
 
 	i = -1;
-	tmp = s->head->prev;
-	while (++i < s->count)
+	while (++i < s->stack_a.count)
 	{
-		free(s->head);
-		s->head = tmp;
-		tmp = tmp->prev;
+		tmp = s->stack_a.head;
+		s->stack_a.head = s->stack_a.head->prev;
+		free(tmp);
+	}
+	i = -1;
+	while (++i < s->stack_b.count)
+	{
+		tmp = s->stack_b.head;
+		s->stack_b.head = s->stack_b.head->prev;
+		free(tmp);
+	}
+}
+
+void	find_max_and_rotate(t_stack *stack, char *r, char *rr)
+{
+	t_node	*temp;
+	int		i;
+
+	temp = stack->head;
+	i = -1;
+	while (++i < stack->count)
+	{
+		if (temp->supos_index == stack->count - 1)
+		{
+			if (i > stack->count / 2)
+			{
+				while (i != stack->count)
+				{
+					rev_rotate(stack, rr);
+					++i;
+				}
+			}
+			else
+				while (--i >= 0)
+					rotate(stack, r);
+			break ;
+		}
+		temp = temp->prev;
 	}
 }

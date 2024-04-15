@@ -1,18 +1,20 @@
 #include "../includes/stack.h"
+#include <limits.h>
 
 int	init_sorted_array(int *arr, int len, char **args)
 {
-	int	i;
+	int		i;
+	long	num;
 
 	i = -1;
 	while (args[++i])
 	{
+		num = to_long(args[i]);
 		if (args[i][0] == '0' && !args[i][1])
 			arr[i] = 0;
-		else if (ft_atoi(args[i]))
-			arr[i] = ft_atoi(args[i]);
-		else
+		else if (num > INT_MAX || num < INT_MIN || num == 0)
 			return (EXIT_FAILURE);
+		arr[i] = num;
 	}
 	bubble_sort(&arr[0], len);
 	return (EXIT_SUCCESS);
@@ -32,7 +34,7 @@ int	find_index(int *arr, int to_find, int len)
 	return (0);
 }
 
-int	check_for_dublicate(int *arr, int size)
+int	check_for_duplicate(int *arr, int size)
 {
 	int	i;
 	int	j;
@@ -63,7 +65,7 @@ int	init_stack(int *arr, int len, char **args, t_engine *engine)
 	i = len;
 	while (args[--i] && i >= 0)
 	{
-		number = ft_atoi(args[i]);
+		number = to_long(args[i]);
 		index = find_index(&arr[0], number, len);
 		node = create_node(number, index);
 		if (!node)
@@ -85,7 +87,7 @@ int	init_components(int len, char **args, t_engine *engine)
 	if (!status)
 		status = !status && init_sorted_array(&arr[0], len, args);
 	if (!status)
-		status = !status && check_for_dublicate(&arr[0], len);
+		status = !status && check_for_duplicate(&arr[0], len);
 	if (!status)
 		status = !status && init_stack(&arr[0], len, args, engine);
 	free(arr);
