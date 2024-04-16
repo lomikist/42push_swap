@@ -1,4 +1,4 @@
-#include "../includes/stack.h"
+#include "stack.h"
 #include <limits.h>
 
 void	bubble_sort(int *arr, int count)

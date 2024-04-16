@@ -1,4 +1,4 @@
-#include "../includes/get_next_line_bonus.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strjoin_free(char *s1, const char *s2)
 {

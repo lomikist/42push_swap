@@ -1,4 +1,4 @@
-#include "../includes/stack.h"
+#include "stack.h"
 
 t_node	*create_node(int data, int supos_index)
 {

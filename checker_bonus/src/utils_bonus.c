@@ -1,4 +1,4 @@
-#include "../includes/stack_bonus.h"
+#include "stack_bonus.h"
 #include <limits.h>
 
 int	ft_strcmp(char *s1, char *s2)
@@ -11,10 +11,19 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-long	to_long(char *str, int sign)
+long	to_long(char *str)
 {
 	long	number;
+	int		sign;
 
+	sign = 1;
+	if (*str == '-')
+	{
+		sign = -1;
+		str++;
+	}
+	else if (*str == '+')
+		str++;
 	number = 0;
 	while (*str != '\0')
 	{
@@ -29,22 +38,51 @@ long	to_long(char *str, int sign)
 	return (number * sign);
 }
 
-long	ft_atoi(char *str)
+void	free_2d_array(void **arr, int n_rows)
 {
-	long	number;
-	int		sign;
+	int	i;
 
-	sign = 1;
-	number = 0;
-	if (*str == '-')
+	i = -1;
+	while (++i < n_rows)
+		free(arr[i]);
+	free(arr);
+}
+
+void	free_engine(t_engine *s)
+{
+	int		i;
+	t_node	*tmp;
+
+	i = -1;
+	while (++i < s->stack_a.count)
 	{
-		sign = -1;
-		str++;
+		tmp = s->stack_a.head;
+		s->stack_a.head = s->stack_a.head->prev;
+		free(tmp);
 	}
-	else if (*str == '+')
-		str++;
-	number = to_long(str, sign);
-	if (number < INT_MIN || number > INT_MAX)
-		message("Error\n", 6, EXIT_FAILURE);
-	return (number);
+	i = -1;
+	while (++i < s->stack_b.count)
+	{
+		tmp = s->stack_b.head;
+		s->stack_b.head = s->stack_b.head->prev;
+		free(tmp);
+	}
+}
+
+char	**parse_args(int *argc, char **argv, int *heap_flag)
+{
+	char	**args;
+
+	*heap_flag = 0;
+	if (*argc == 2)
+	{
+		args = ft_split(argv[1], ' ');
+		*argc = 1;
+		while (args[*argc - 1] != NULL)
+			++(*argc);
+		*heap_flag = 1;
+	}
+	else
+		args = argv + 1;
+	return (args);
 }

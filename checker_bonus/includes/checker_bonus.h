@@ -4,7 +4,7 @@
 # include "get_next_line_bonus.h"
 # include "../../libft/libft.h"
 
-void	exec(t_engine *engine, int fd);
-int		check(t_engine *engine);
+int	exec(t_engine *engine, int fd);
+int	check(t_engine *engine);
 
 #endif

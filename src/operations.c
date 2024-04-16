@@ -1,4 +1,4 @@
-#include "../includes/stack.h"
+#include "stack.h"
 
 void	swap(t_stack *stack, char *cmd)
 {

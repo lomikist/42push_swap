@@ -1,6 +1,6 @@
 NAME			= push_swap
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror -g
+CFLAGS			= -Wall -Wextra -Werror
 
 LIBFT_DIR		= libft
 LIBFT_FLAGS		= -lft -L $(LIBFT_DIR)
@@ -13,12 +13,14 @@ SRCS_DIR		= src
 SRCS			= $(wildcard $(SRCS_DIR)/*.c)
 OBJS_DIR		= objs
 OBJS			= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
+INC				= includes
 
 CHECKER_NAME	= checker
 CHECKER_DIR		= checker_bonus
 CHECKER_SRCS	= $(wildcard $(CHECKER_DIR)/$(SRCS_DIR)/*.c)
 CHECKER_FLAG 	= -I$(CHECKER_DIR)/$(INCLUDES_DIR) -I$(LIBFT_DIR) 
 CHECKER_INCLUDE	= $(wildcard $(CHECKER_DIR)/$(INCLUDES_DIR)/*.h) $(LIBFT_DIR)/libft.h 
+INC_BONUS		= $(CHECKER_DIR)/includes
 
 OBJS_DIR_BONUS	= objs_bonus
 OBJS_BONUS		= $(patsubst $(CHECKER_DIR)/$(SRCS_DIR)/%.c, $(OBJS_DIR_BONUS)/%.o, $(CHECKER_SRCS))
@@ -44,7 +46,7 @@ $(NAME) : $(OBJS)
 	@$(MAKE) $(LIBFT_DIR)
 	@echo $(YELLOW) " - Made libft!" $(RESET)
 	@echo $(GREEN) " - Compiling $(NAME)..." $(RESET)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_FLAGS)  -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_FLAGS)  -o $(NAME) -I $(INC)
 	@echo $(YELLOW) " - Compiling FINISHED" $(RESET)
 
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c $(INCLUDES) | $(OBJS_DIR)
@@ -71,7 +73,7 @@ $(CHECKER_NAME) : $(OBJS_BONUS)
 	@$(MAKE) $(LIBFT_DIR)
 	@echo $(YELLOW) " - Made libft!" $(RESET)
 	@echo $(GREEN) " - Compiling $(CHECKER_NAME)..." $(RESET)
-	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT_FLAGS) -o $(CHECKER_NAME)
+	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT_FLAGS) -o $(CHECKER_NAME) -I $(INC_BONUS)
 	@echo $(YELLOW) " - Compiling FINISHED" $(RESET)
 
 $(OBJS_DIR_BONUS)/%.o : $(CHECKER_DIR)/$(SRCS_DIR)/%.c $(CHECKER_INCLUDE) | $(OBJS_DIR_BONUS)

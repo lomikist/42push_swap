@@ -1,4 +1,4 @@
-#include "../includes/stack.h"
+#include "stack.h"
 #include <limits.h>
 
 int	init_sorted_array(int *arr, int len, char **args)

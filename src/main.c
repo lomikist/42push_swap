@@ -1,4 +1,4 @@
-#include "../includes/stack.h"
+#include "stack.h"
 
 void	push_swap_3(t_engine *e)
 {

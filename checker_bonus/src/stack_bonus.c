@@ -1,10 +1,5 @@
-#include "../includes/stack_bonus.h"
-
-void	message(char *sms, int count, int status)
-{
-	write(2, sms, count);
-	exit(status);
-}
+#include "stack_bonus.h"
+#include <limits.h>
 
 t_node	*create_node(int data, int supos_index)
 {
@@ -62,24 +57,43 @@ t_node	*pop(t_stack *stack)
 	return (temp);
 }
 
-void	init_stack(int len, char **args, t_engine *engine)
+int	check_for_duplicate(t_stack *s)
+{
+	t_node	*tmp_i;
+	t_node	*tmp_j;
+
+	tmp_i = s->head;
+	while (tmp_i != s->tail)
+	{
+		tmp_j = tmp_i->prev;
+		while (tmp_j != s->head)
+		{
+			if (tmp_i->data == tmp_j->data)
+				return (EXIT_FAILURE);
+			tmp_j = tmp_j->prev;
+		}
+		tmp_i = tmp_i->prev;
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	init_stack(int len, char **args, t_engine *engine)
 {
 	t_node	*node;
-	int		number;
+	long	number;
 	int		i;
 
-	if (len == 1)
+	i = len - 1;
+	while (i >= 0 && args[i])
 	{
-		args = ft_split(args[0], ' ');
-		len = -1;
-		while (args[++len] != NULL)
-			continue ;
-	}
-	i = len;
-	while (args[--i] && i >= 0)
-	{
-		number = ft_atoi(args[i]);
+		number = to_long(args[i]);
+		if (args[i][0] == '0' && !args[i][1])
+			number = 0;
+		else if (number > INT_MAX || number < INT_MIN || number == 0)
+			return (EXIT_FAILURE);
 		node = create_node(number, i);
 		push(&engine->stack_a, node);
+		--i;
 	}
+	return (check_for_duplicate(&engine->stack_a));
 }

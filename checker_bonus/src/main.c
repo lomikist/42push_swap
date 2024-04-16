@@ -1,4 +1,4 @@
-#include "../includes/checker_bonus.h"
+#include "checker_bonus.h"
 
 int	exec_part1(t_engine *engine, char *command)
 {
@@ -53,7 +53,7 @@ int	exec_part2(t_engine *engine, char *command)
 	return (0);
 }
 
-void	exec(t_engine *engine, int fd)
+int	exec(t_engine *engine, int fd)
 {
 	char	*command;
 
@@ -73,9 +73,12 @@ void	exec(t_engine *engine, int fd)
 		else if (!ft_strcmp(command, "ra\n"))
 			rotate(&engine->stack_a);
 		else
-			message("Error\n", 6, EXIT_FAILURE);
+			return (EXIT_FAILURE);
+		free(command);
 		command = get_next_line(fd);
 	}
+	free(command);
+	return (EXIT_SUCCESS);
 }
 
 int	check(t_engine *engine)
@@ -99,21 +102,27 @@ int	check(t_engine *engine)
 int	main(int argc, char **argv)
 {
 	t_engine	engine;
+	int			free_args;
 
-	engine.stack_a.head = NULL;
-	engine.stack_a.tail = NULL;
-	engine.stack_b.head = NULL;
-	engine.stack_b.tail = NULL;
-	engine.stack_a.count = 0;
-	engine.stack_b.count = 0;
+	engine.stack_a = (t_stack){.head = NULL, .tail = NULL, .count = 0};
+	engine.stack_b = (t_stack){.head = NULL, .tail = NULL, .count = 0};
+	free_args = 0;
 	if (argc > 1)
 	{
-		init_stack(argc - 1, argv + 1, &engine);
-		exec(&engine, 0);
-		if (check(&engine))
-			write(1, "OK\n", 3);
+		argv = parse_args(&argc, argv, &free_args);
+		if (argc != 1 && !init_stack(argc - 1, argv, &engine)
+			&& !exec(&engine, 0))
+		{
+			if (check(&engine))
+				write(1, "OK\n", 3);
+			else
+				write(1, "KO\n", 3);
+		}
 		else
-			write(1, "KO\n", 3);
+			write(2, "Error\n", 6);
+		if (free_args)
+			free_2d_array((void **)argv, argc - 1);
+		free_engine(&engine);
 	}
 	return (0);
 }
