@@ -1,6 +1,15 @@
 {
 	"files.associations": {
 		"stack.h": "c",
-		"valarray": "c"
+		"valarray": "c",
+		"checker.h": "c",
+		"get_next_line.h": "c",
+		"libft.h": "c",
+		"get_next_line_bonus.h": "c",
+		"stack_bonus.h": "c",
+		"stdlib.h": "c",
+		"stdio.h": "c",
+		"stddef.h": "c",
+		"limits.h": "c"
 	}
 }
