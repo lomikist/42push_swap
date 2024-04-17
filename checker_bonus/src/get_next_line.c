@@ -1,25 +1,7 @@
 #include <unistd.h>
-#include "../includes/get_next_line.h"
+#include "get_next_line.h"
 
-char	*ft_strchr(char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	if (c == '\0')
-		return ((char *)&s[ft_strlen(s)]);
-	while (s[i] != '\0')
-	{
-		if (s[i] == (char) c)
-			return ((char *)&s[i]);
-		i++;
-	}
-	return (0);
-}
-
-char	*ft_strjoin(char *left_str, char *buff)
+char	*ft_gnl_strjoin(char *left_str, char *buff)
 {
 	size_t	i;
 	size_t	j;
@@ -120,7 +102,7 @@ char	*ft_read_to_left_str(int fd, char *left_str)
 			return (NULL);
 		}
 		buff[rd_bytes] = '\0';
-		left_str = ft_strjoin(left_str, buff);
+		left_str = ft_gnl_strjoin(left_str, buff);
 	}
 	free(buff);
 	return (left_str);

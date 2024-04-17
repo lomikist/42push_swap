@@ -62,8 +62,8 @@ int	init_stack(int *arr, int len, char **args, t_engine *engine)
 	int		i;
 	int		index;
 
-	i = len;
-	while (args[--i] && i >= 0)
+	i = len - 1;
+	while (i >= 0 && args[i])
 	{
 		number = to_long(args[i]);
 		index = find_index(&arr[0], number, len);
@@ -71,6 +71,7 @@ int	init_stack(int *arr, int len, char **args, t_engine *engine)
 		if (!node)
 			return (EXIT_FAILURE);
 		push(&engine->stack_a, node);
+		--i;
 	}
 	return (EXIT_SUCCESS);
 }
