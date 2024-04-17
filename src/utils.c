@@ -73,6 +73,8 @@ long	to_long(char *str)
 	else if (*str == '+')
 		str++;
 	number = 0;
+	if (*str == '0')
+		return (0);
 	while (*str != '\0')
 	{
 		if (*str <= '9' && *str >= '0')

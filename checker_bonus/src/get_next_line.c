@@ -83,7 +83,6 @@ char	*ft_new_left_str(char *left_str)
 	return (str);
 }
 
-
 char	*ft_read_to_left_str(int fd, char *left_str)
 {
 	char	*buff;

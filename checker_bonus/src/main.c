@@ -58,11 +58,9 @@ int	exec(t_engine *engine, int fd)
 	char	*command;
 
 	command = get_next_line(fd);
-	while (command)
+	while (command && command[0] != '\0')
 	{
-		if (command[0] == '\0')
-			break ;
-		else if (exec_part1(engine, command))
+		if (exec_part1(engine, command))
 			;
 		else if (exec_part2(engine, command))
 			;
@@ -73,7 +71,10 @@ int	exec(t_engine *engine, int fd)
 		else if (!ft_strcmp(command, "ra\n"))
 			rotate(&engine->stack_a);
 		else
+		{
+			free(command);
 			return (EXIT_FAILURE);
+		}
 		free(command);
 		command = get_next_line(fd);
 	}
