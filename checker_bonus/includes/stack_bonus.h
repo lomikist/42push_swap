@@ -1,10 +1,22 @@
-#ifndef STACK_H
-# define STACK_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arsargsy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/17 22:41:09 by arsargsy          #+#    #+#             */
+/*   Updated: 2024/04/17 22:45:23 by arsargsy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef STACK_BONUS_H
+# define STACK_BONUS_H
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <stddef.h>
-# include "../../libft/libft.h"
+# include "libft.h"
 
 typedef struct s_node
 {

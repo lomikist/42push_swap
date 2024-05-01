@@ -7,19 +7,28 @@ LIBFT_FLAGS		= -lft -L $(LIBFT_DIR)
 
 INCLUDES_DIR 	= includes
 INCLUDES_FLAG 	= -I$(INCLUDES_DIR) -I$(LIBFT_DIR) 
-INCLUDES		= $(wildcard $(INCLUDES_DIR)/*.h) $(LIBFT_DIR)/libft.h 
+INCLUDES		= $(shell find $(INCLUDES_DIR)/*.h) $(LIBFT_DIR)/libft.h 
 
 SRCS_DIR		= src
-SRCS			= $(wildcard $(SRCS_DIR)/*.c)
+SRCS			= 	src/init_stack.c \
+					src/main.c \
+					src/operations.c \
+					src/utils.c \
+					src/stack.c 
 OBJS_DIR		= objs
 OBJS			= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 INC				= includes
 
 CHECKER_NAME	= checker
 CHECKER_DIR		= checker_bonus
-CHECKER_SRCS	= $(wildcard $(CHECKER_DIR)/$(SRCS_DIR)/*.c)
+CHECKER_SRCS	= 	$(CHECKER_DIR)/$(SRCS_DIR)/get_next_line.c \
+					$(CHECKER_DIR)/$(SRCS_DIR)/main.c \
+					$(CHECKER_DIR)/$(SRCS_DIR)/operations_bonus.c \
+					$(CHECKER_DIR)/$(SRCS_DIR)/stack_bonus.c \
+					$(CHECKER_DIR)/$(SRCS_DIR)/utils_bonus.c
+
 CHECKER_FLAG 	= -I$(CHECKER_DIR)/$(INCLUDES_DIR) -I$(LIBFT_DIR) 
-CHECKER_INCLUDE	= $(wildcard $(CHECKER_DIR)/$(INCLUDES_DIR)/*.h) $(LIBFT_DIR)/libft.h 
+CHECKER_INCLUDE	= $(shell find $(CHECKER_DIR)/$(INCLUDES_DIR)/*.h) $(LIBFT_DIR)/libft.h 
 INC_BONUS		= $(CHECKER_DIR)/includes
 
 OBJS_DIR_BONUS	= objs_bonus

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_stack.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arsargsy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/17 22:32:37 by arsargsy          #+#    #+#             */
+/*   Updated: 2024/04/17 22:32:39 by arsargsy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "stack.h"
 #include <limits.h>
 
@@ -62,8 +74,8 @@ int	init_stack(int *arr, int len, char **args, t_engine *engine)
 	int		i;
 	int		index;
 
-	i = len;
-	while (args[--i] && i >= 0)
+	i = len - 1;
+	while (i >= 0 && args[i])
 	{
 		number = to_long(args[i]);
 		index = find_index(&arr[0], number, len);
@@ -71,6 +83,7 @@ int	init_stack(int *arr, int len, char **args, t_engine *engine)
 		if (!node)
 			return (EXIT_FAILURE);
 		push(&engine->stack_a, node);
+		--i;
 	}
 	return (EXIT_SUCCESS);
 }
